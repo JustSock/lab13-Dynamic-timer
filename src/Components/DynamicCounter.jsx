@@ -17,7 +17,7 @@ function DynamicCounter(props){
 
     useEffect(() => {
         let interval = null;
-        if (isTimerOn)
+        if (isTimerOn  && count<100)
             interval = setInterval(() => {            
                 setCount((count) =>count + 1);            
             }, 1000);
@@ -34,7 +34,7 @@ function DynamicCounter(props){
                     <button className="main-button" onClick={function(){if (count<100) {setCount(count + 1)}}}>Увеличить</button>
                     <button className="main-button" onClick={function(){if (count>0) {setCount(count - 1)}}}>Уменьшить</button>
                 </div>
-                <button className="main-button" onClick = {toggleTimer}>Включить таймер</button>
+                <button className="main-button" onClick = {toggleTimer}> {isTimerOn ? "Выключить" : "Включить"} таймер</button>
                 <button className="main-button" onClick = {getQuote}>Получить случайную цитату</button>
             </div>
         </div>
