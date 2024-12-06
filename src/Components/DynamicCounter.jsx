@@ -3,7 +3,7 @@ import React, { useState, useEffect} from "react";
 function DynamicCounter(props){
     const [count, setCount] = useState(0);
     const [isTimerOn, setIsTimerOn] = useState(false);
-    const [currentQuote, setCurrentQuote] = useState('asdasd');
+    const [currentQuote, setCurrentQuote] = useState('');
 
     const toggleTimer = () => {
         setIsTimerOn(!isTimerOn);
@@ -12,7 +12,7 @@ function DynamicCounter(props){
     const getQuote = () => {
     fetch("https://api.quotable.io/quotes/random")
             .then((res) => res.json())
-            .then((json) =>setCurrentQuote(JSON.stringify(json)))
+            .then((json) =>setCurrentQuote(json[0]["content"]))
     };
 
     useEffect(() => {
@@ -26,13 +26,17 @@ function DynamicCounter(props){
 
     return(
         <div className="Dynamic-timer">
-            <h4 className="main-block-header">Динамический счетчик {isTimerOn}</h4>            
-            <p className="main-block-text">Счетчик: {count}</p>
+            <h1 className="main-block-header">Динамический счетчик {isTimerOn}</h1>            
+            <h2 className="main-block-text">Счетчик: {count}</h2>
             <p className="main-block-text">{currentQuote}</p>
-            <button className="main-button" onClick={function(){if (count<100) {setCount(count + 1)}}}>Увеличить</button>
-            <button className="main-button" onClick={function(){if (count>0) {setCount(count - 1)}}}>Уменьшить</button>
-            <button className="main-turn-on" onClick = {toggleTimer}>Включить таймер</button>
-            <button className="main-citate" onClick = {getQuote}>Получить случайную цитату</button>
+            <div className="main-buttons">
+                <div>
+                    <button className="main-button" onClick={function(){if (count<100) {setCount(count + 1)}}}>Увеличить</button>
+                    <button className="main-button" onClick={function(){if (count>0) {setCount(count - 1)}}}>Уменьшить</button>
+                </div>
+                <button className="main-button" onClick = {toggleTimer}>Включить таймер</button>
+                <button className="main-button" onClick = {getQuote}>Получить случайную цитату</button>
+            </div>
         </div>
     );
 }
